@@ -1,0 +1,35 @@
+<div class="container-fluid mt-2"> 
+    <div class="row ml-1">
+        <img   class="image-fluid"  src="assets/images/back.png" alt="" style="width: 40px; height: 40px;" [routerLink]="['/welcome']" routerLinkActive="router-link-active" >
+    </div>
+    <div class="row justify-content-center"> 
+            <img src="assets/images/logo_grie.png" alt="">
+    </div>
+</div>
+<div class="container-fluid"> 
+    <div class="row main-content text-center">
+        <div class="col-md-4 text-center company__info">
+            <h4 class="company_title">Log In</h4>
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+            <div class="container-fluid">
+                <div class="row">
+                    <form control="" class="form-group form">
+                        <div class="row">
+                            <input type="text" name="username" id="username" class="form__input" placeholder="Username">
+                        </div>
+                        <div class="row justify-content-center">
+                            <input type="password" name="password" id="password" class="form__input" placeholder="Password">
+                        </div>
+                        <div class="row justify-content-center">
+                            <input type="submit" value="Submit" class="btn">
+                        </div>
+                    </form>
+                </div>
+                <div class="row justify-content-center">
+                    <p>Don't have an account? <a class="green_text" [routerLink]="['/signup']" routerLinkActive="router-link-active" >Sign Up Here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

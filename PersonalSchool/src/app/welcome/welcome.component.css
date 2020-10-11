@@ -1,0 +1,28 @@
+
+.link{
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #72E5AE;
+    text-decoration: none;
+    font-weight: bold;
+}
+.nav_text{
+    text-decoration: none;
+    color: #72E5AE;
+    font-family: 'Righteous', Times, serif;
+}
+.green_text{
+    color: #72E5AE;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;
+}
+
+.gray_text{
+    color: #3F3D40;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: smaller;
+}
+
+
+

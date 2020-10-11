@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-5">
+            <div class="row">
+                <input #moduleName class="__input" type="text" name="moduleName"placeholder="Name">
+            </div>
+            <div class="row">
+                <input #moduleDescription class="__input" type="text" name="moduleDescription" placeholder="Description">
+            </div>
+            
+            <div class="row justify-content-center">
+                <button type="button" class="btn btn__"  data-dismiss="modal" (click)="createNewModule(moduleName.value,moduleDescription.value)" routerLink="/home" routerLinkActive="router-link-active" >Confirm</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,279 @@
+<app-header></app-header>
+
+<div class="container-fluid mt-2"> 
+    <div class="row ml-1">
+        <img   class="image-fluid"  src="assets/images/back.png" alt="" style="width: 40px; height: 40px;" [routerLink]="['/welcome']" routerLinkActive="router-link-active" >
+    </div>
+</div>
+<div class="container-fluid"> 
+    <div class="row main-content text-center">
+        <div class="col-md-2 company__info">
+            <div class="row justify-content-between mt-2">
+                <div class="col-9">
+                    <h4 class="company_title">Modules</h4>
+                </div>
+                <div class="col-3"> 
+                    <div class="dropdown">
+                        <img class="dropdown-toggle" src="assets/images/setting.png" style="width: 20px; height: 20px;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" data-toggle="modal" data-target="#editModuleModal">Edit module
+                            <img  src="assets/images/edit_dark.png" style="width: 15px; height: 15px; margin-left: 20px;" >
+                          </a>
+                          <a class="dropdown-item" (click)="DeleteModule()">Delete module
+                            <img  src="assets/images/delete_dark.png" style="width: 15px; height: 15px;" >
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 barre_white"></div>
+                <div class="col-12 justify-content-start">
+                    <div class="module-menu">
+                        <a  class="module-menu-item" *ngFor="let module of modules"  [routerLink]="['/modules', module._id]" routerLinkActive="is-active">
+                          <p>{{ module.name }}</p>
+                          <!--button (click)="DeleteModule()" >delete</button-->        
+                        </a>
+                           
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-sm-8 col-md-11">
+                    <input type="button" value="Add" class="btn" data-toggle="modal" data-target="#addModuleModal">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-10 col-xs-12 col-sm-12 course-container">
+            <div class="row">
+                <div class="col-12 company_title mt-2">
+                    <h4>Courses</h4>
+                    <button *ngIf="modules.length > 0" class="btn btn__ button_add" data-toggle="modal" data-target="#addCourseModal">+</button>
+                </div>
+                <div class="row barre_grie"> </div>
+                <div class="row ml-1" *ngIf="modules.length > 0">
+                    <div class="col-12 text-left">
+                        <b>Description :</b>
+                    </div>
+                    <div class="col-12 text-left ">
+                        <p>{{editedModule.description}}</p>
+                    </div>
+                </div>
+                <div class="row main-content text-left" *ngIf="modules.length > 0">
+                    
+                    <div class="col-12">
+                        <div class="row" *ngIf="courses.length > 0">
+                            <div class="col-sm-12 col-md-4 course-menu ">
+                                <div class="col-12 course-menu-item" *ngFor="let course of courses">
+                                    <div class="col-10">
+                                        <p [routerLink]="['/modules',selectedModuleId,'courses',course._id]"  routerLinkActive="course-is-active">
+                                            {{ course.title }}
+                                        </p>
+                                    </div>
+                                    <div class="col-1 mb-3">
+                                        <img  src="assets/images/edit.png" style="width: 15px; height: 15px;" data-toggle="modal" data-target="#editCourseModal" >
+                                    </div>
+                                    <div class="col-1 mb-3">
+                                        <img  src="assets/images/delete.png" style="width: 15px; height: 15px;" (click)="DeleteCourse()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-8">
+                                <div class="row">
+                                    <div class="col-12 justify-content-between">
+                                        <b>Objectif :</b>
+                                        <button class="btn btn__ button_add" data-toggle="modal" data-target="#addContentModal">+</button>
+                                    </div>
+                                    <div class="col-12 justify-content-start">
+                                        <p>{{editedCourse.objectif}}</p>
+                                    </div>
+                                    <div class="col-12 justify-content-start">
+                                        <div class="content-list">
+
+                                          <div class="content-item justify-content-between" *ngFor="let content of contents">
+                                            <div>
+                                              <img *ngIf="content.type ==='Image'" src="assets/images/image.png" alt="" style="width: 20px;height: 20px; margin-right: 15px;" >
+                                              <img *ngIf="content.type ==='Video'" src="assets/images/video.png" alt="" style="width: 20px;height: 20px; margin-right: 15px;" >
+                                              <img *ngIf="content.type ==='Document'" src="assets/images/doc.png" alt="" style="width: 20px;height: 20px; margin-right: 15px;" >
+                                              <img *ngIf="content.type ==='Code'" src="assets/images/code.png" alt="" style="width: 20px;height: 20px; margin-right: 15px;" >
+                                              <a  href="{{content.link}}">{{content.title}}</a>  
+                                            </div>
+
+                                            <div>
+                                              <img  src="assets/images/delete_dark.png" style="width: 15px; height: 15px; margin-left: 20px;" [routerLink]="['/modules',selectedModuleId,'courses',selectedCourseId,'contents',content._id]">                                    
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                    </div>             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Module Modal -->
+<div class="modal fade" id="addModuleModal" tabindex="-1" aria-labelledby="addModuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addModuleModalLabel">Add New Module</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input class="__input" type="text" name="moduleName" [(ngModel)]="module.name" #moduleName="ngModel" placeholder="Name">
+            </div>
+            <div class="row">
+                <input class="__input" type="text" name="moduleDescription" [(ngModel)]="module.description" #moduleDescription="ngModel" placeholder="Description">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="createNewModule()" routerLink="/home" routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Edit Module Modal -->
+<div class="modal fade" id="editModuleModal" tabindex="-1" aria-labelledby="editModuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModuleModalLabel">Edit Module</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input class="__input" type="text" name="moduleName" [(ngModel)]="editedModule.name" #moduleName="ngModel" placeholder="Name">
+            </div>
+            <div class="row">
+                <input class="__input" type="text" name="moduleDescription" [(ngModel)]="editedModule.description" #moduleDescription="ngModel" placeholder="Description">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="editModule()" routerLink="/home" routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Course Modal -->
+  <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCourseModalLabel">Add New Course</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input class="__input" type="text" name="courseTitle" [(ngModel)]="course.title" #moduleName="ngModel" placeholder="Title">
+            </div>
+            <div class="row">
+                <input class="__input" type="text" name="courseObjectif" [(ngModel)]="course.objectif" #moduleDescription="ngModel" placeholder="Objectif">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="createNewCourse()" [routerLink]="['/modules',selectedModuleId]" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Course Modal -->
+  <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input class="__input" type="text" name="courseTitle" [(ngModel)]="editedCourse.title" #courseTitle="ngModel" placeholder="Title">
+            </div>
+            <div class="row">
+                <input class="__input" type="text" name="courseObjectif" [(ngModel)]="editedCourse.objectif" #courseObjectif="ngModel" placeholder="Objectif">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="editCourse()" [routerLink]="['/modules',selectedModuleId,'courses',course._id]" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Add Content Modal -->
+  <div class="modal fade" id="addContentModal" tabindex="-1" aria-labelledby="addContentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addContentModalLabel">Add New Content</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input #contentTitle class="__input" type="text" name="contentTitle" placeholder="Title">
+            </div>
+            <div class="row">
+              <select #contentType class="__input" id="type">
+                  <option selected>Type</option>
+                  <option>Video</option>
+                  <option>Document</option>
+                  <option>Image</option>
+                  <option>Code</option>
+              </select> 
+            </div>           
+            <div class="row">
+                <input #contentLink class="__input" type="text" name="contentLink" placeholder="Link">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="createNewContent(contentTitle.value, contentType.value, contentLink.value)" [routerLink]="['/modules',selectedModuleId,'courses',selectedCourseId,'contents']"  routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Course Modal -->
+  <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <input class="__input" type="text" name="courseTitle" [(ngModel)]="editedCourse.title" #courseTitle="ngModel" placeholder="Title">
+            </div>
+            <div class="row">
+                <input class="__input" type="text" name="courseObjectif" [(ngModel)]="editedCourse.objectif" #courseObjectif="ngModel" placeholder="Objectif">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button type="button" class="btn btn__"  data-dismiss="modal" (click)="editCourse()" [routerLink]="['/modules',selectedModuleId,'courses',course._id]" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<app-footer></app-footer>

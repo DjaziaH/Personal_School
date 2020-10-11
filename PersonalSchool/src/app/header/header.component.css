@@ -1,0 +1,16 @@
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+.barre{
+    height: 1.5vh;
+    background-color: #3F3D40;
+}
+.barre_transparant{
+    height: 1.5vh;
+}
+.logo{
+    width: 100px;
+    height: 30px;
+}
